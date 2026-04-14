@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+:root {
+  --neon-blue: #4ec8ff;
+  --neon-blue-dim: rgba(78, 200, 255, 0.3);
+  --panel-bg: rgba(6, 18, 40, 0.88);
+  --panel-border: rgba(78, 200, 255, 0.6);
+  --tile-bg: rgba(8, 24, 56, 0.9);
+  --text-primary: #e8f4ff;
+  --text-dim: #7aaabf;
+  --danger: #ff4444;
+  --danger-dim: rgba(255, 68, 68, 0.3);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Orbitron', 'system-ui', sans-serif;
+  color: var(--text-primary);
+  background-color: #020c1e;
+  /* background-image задаётся в App.tsx через импортированный asset */
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
