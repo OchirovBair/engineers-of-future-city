@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useReducer, useState } from 'react'
 import { RESOURCES, type ResourceCode } from '../config/resources'
-import { FAILURE_OUTCOME, RANGE_OUTCOMES, type Outcome } from '../config/outcomes'
+import { FAILURE_OUTCOME, selectRangeOutcome, type Outcome } from '../config/outcomes'
 
 type Values = Record<ResourceCode, number>
 
@@ -75,8 +75,8 @@ export function useGameState(): GameState {
 
   const outcome = useMemo<Outcome | null>(() => {
     if (failed) return FAILURE_OUTCOME
-    return RANGE_OUTCOMES.find((o) => final >= o.min && final <= o.max) ?? null
-  }, [failed, final])
+    return selectRangeOutcome(final, values, katInput)
+  }, [failed, final, values, katInput])
 
   const setValue = useCallback((code: ResourceCode, delta: 1 | -1) => {
     dispatch({ type: 'SET', code, delta })

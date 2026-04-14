@@ -1,4 +1,5 @@
 import './SummaryPanel.css'
+import { RESOURCES } from '../config/resources'
 
 interface Props {
   index: number
@@ -17,7 +18,7 @@ export function SummaryPanel({ index, katDisplay, final, failed, failedCode, onS
 
       {failed && failedCode && (
         <div className="summary__alert">
-          ⚠ Критический ресурс «{failedCode}» обнулён — Провал!
+          ⚠ Критический ресурс «{RESOURCES.find(r => r.code === failedCode)?.name ?? failedCode}» обнулён — Провал!
         </div>
       )}
 

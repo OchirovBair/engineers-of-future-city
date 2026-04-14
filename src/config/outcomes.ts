@@ -1,56 +1,67 @@
-import skullImg from '../assets/images/icon-skull.png'
-import cardBg from '../assets/images/card-bg.png'
-import pageBg from '../assets/images/page-bg.jpg'
-import banner from '../assets/images/banner.png'
+import bgCatastrophe from '../assets/images/bg-catastrophe.png';
+import bgCrisis from '../assets/images/bg-crisis.png';
+import bgStrong from '../assets/images/bg-strong.png';
+import bgExemplary from '../assets/images/bg-exemplary.png';
+import type { ResourceCode } from './resources';
 
 export interface Outcome {
-  title: string
-  description: string
+  title: string;
+  description: string;
   /** URL картинки для полноэкранного модала */
-  image: string
+  image: string;
+  /** Показывать заголовок красным цветом */
+  danger?: boolean;
 }
 
-export interface RangeOutcome extends Outcome {
-  min: number
-  max: number
-}
-
-/**
- * Исход при обнулении критичного ресурса (ЭКО/ЭНР/ПРВ).
- * TODO: замените image на нужную картинку
- */
+/** Автопровал — критический ресурс обнулён */
 export const FAILURE_OUTCOME: Outcome = {
-  title: 'ПРОВАЛ',
-  description: 'Критический ресурс города исчерпан. Город не выжил.',
-  image: skullImg,
-}
+  title: 'Катастрофа',
+  description:
+    'Один из критически важных показателей достиг нуля, город разрушен.',
+  image: bgCatastrophe,
+  danger: true,
+};
+
+const КАТАСТРОФА: Outcome = {
+  title: 'Катастрофа',
+  description: 'Финальный рейтинг критически низок. Город не смог выстоять.',
+  image: bgCatastrophe,
+  danger: true,
+};
+
+const ГЛУБОКИЙ_КРИЗИС: Outcome = {
+  title: 'Город в глубоком кризисе',
+  description: 'Городу удалось избежать краха, но ситуация остаётся крайне тяжёлой.',
+  image: bgCrisis,
+};
+
+const СИЛЬНЫЙ_ГОРОД: Outcome = {
+  title: 'Сильный город',
+  description: 'Город устоял. Ключевые показатели под контролем, есть основа для развития.',
+  image: bgStrong,
+};
+
+const ОБРАЗЦОВЫЙ_ГОРОД: Outcome = {
+  title: 'Образцовый город',
+  description: 'Все системы работают в штатном режиме. Инженеры будущего справились с вызовами!',
+  image: bgExemplary,
+};
 
 /**
- * Диапазоны ФИНАЛЬНОГО значения.
- * ФИНАЛ = ИНДЕКС − (КАТ × 2)
- * TODO: скорректируйте диапазоны и тексты под вашу игру.
- * TODO: замените image на нужные картинки.
+ * Выбирает исход по итоговому рейтингу.
+ *
+ * Образцовый город:       final ≥ 28
+ * Сильный город:          final 21–27
+ * Город в глубоком кризисе: final 10–20
+ * Катастрофа:             final ≤ 9 (или автопровал — см. FAILURE_OUTCOME)
  */
-export const RANGE_OUTCOMES: RangeOutcome[] = [
-  {
-    min: -Infinity,
-    max: 5,
-    title: 'КАТАСТРОФА',
-    description: 'Город разрушен. Ресурсы на исходе, надежды нет.',
-    image: cardBg,
-  },
-  {
-    min: 6,
-    max: 10,
-    title: 'ВЫЖИЛИ',
-    description: 'Городу удалось устоять. Многое потеряно, но жизнь продолжается.',
-    image: banner,
-  },
-  {
-    min: 11,
-    max: Infinity,
-    title: 'ПРОЦВЕТАНИЕ',
-    description: 'Город процветает! Инженеры будущего справились с вызовами.',
-    image: pageBg,
-  },
-]
+export function selectRangeOutcome(
+  final: number,
+  _values: Record<ResourceCode, number>,
+  _katInput: number
+): Outcome {
+  if (final <= 9)  return КАТАСТРОФА;
+  if (final <= 20) return ГЛУБОКИЙ_КРИЗИС;
+  if (final <= 27) return СИЛЬНЫЙ_ГОРОД;
+  return ОБРАЗЦОВЫЙ_ГОРОД;
+}

@@ -1,3 +1,4 @@
+import { useState, useCallback } from 'react'
 import { RESOURCES } from './config/resources'
 import { useGameState } from './hooks/useGameState'
 import { ResourceTile } from './components/ResourceTile'
@@ -5,13 +6,19 @@ import { KatTile } from './components/KatTile'
 import { SummaryPanel } from './components/SummaryPanel'
 import { CreditCounter } from './components/CreditCounter'
 import { OutcomeDialog } from './components/OutcomeDialog'
-import pageBg from './assets/images/page-bg.jpg'
+import pageBg from './assets/images/page-bg.png'
 import logo from './assets/images/logo.png'
 import './styles/global.css'
 import './App.css'
 
 export default function App() {
   const game = useGameState()
+  const [creditResetKey, setCreditResetKey] = useState(0)
+
+  const handleReset = useCallback(() => {
+    game.reset()
+    setCreditResetKey((k) => k + 1)
+  }, [game])
 
   return (
     <div
@@ -50,10 +57,10 @@ export default function App() {
           failed={game.failed}
           failedCode={game.failedCode}
           onShowResult={game.openResult}
-          onReset={game.reset}
+          onReset={handleReset}
         />
 
-        <CreditCounter />
+        <CreditCounter key={creditResetKey} />
       </main>
 
       <OutcomeDialog

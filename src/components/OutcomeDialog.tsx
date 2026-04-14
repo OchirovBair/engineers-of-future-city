@@ -1,7 +1,6 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import './OutcomeDialog.css'
 import type { Outcome } from '../config/outcomes'
-import { FAILURE_OUTCOME } from '../config/outcomes'
 
 interface Props {
   open: boolean
@@ -10,7 +9,7 @@ interface Props {
 }
 
 export function OutcomeDialog({ open, outcome, onClose }: Props) {
-  const isFailure = outcome === FAILURE_OUTCOME
+  const isFailure = outcome?.danger === true
 
   return (
     <Dialog.Root open={open} onOpenChange={(v) => { if (!v) onClose() }}>

@@ -3,7 +3,9 @@
   box-shadow:
     0 0 18px rgba(255, 68, 68, 0.2),
     inset 0 0 30px rgba(80, 0, 0, 0.4);
-  width: 140px;
+  flex: 1 1 130px;
+  max-width: 160px;
+  min-width: 100px;
 }
 
 .tile--kat::before,
@@ -71,4 +73,23 @@
 .tile__btn--kat:hover:not(:disabled) {
   background: rgba(255, 68, 68, 0.22);
   box-shadow: 0 0 10px rgba(255, 68, 68, 0.4);
+}
+
+/* ── Mobile (≤ 639px) ── */
+@media (max-width: 639px) {
+  .tile--kat {
+    flex: 1 1 calc(33.333% - 6px);
+    max-width: calc(33.333% - 6px);
+    min-width: 0;
+    padding: 12px 8px 14px;
+    gap: 6px;
+  }
+  .tile__icon--skull {
+    width: 44px;
+    height: 44px;
+  }
+  .kat__input,
+  .kat__display {
+    font-size: 24px;
+  }
 }
