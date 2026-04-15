@@ -31,37 +31,40 @@ const КАТАСТРОФА: Outcome = {
 
 const ГЛУБОКИЙ_КРИЗИС: Outcome = {
   title: 'Город в глубоком кризисе',
-  description: 'Городу удалось избежать краха, но ситуация остаётся крайне тяжёлой.',
+  description:
+    'Городу удалось избежать краха, но ситуация остаётся крайне тяжёлой.',
   image: bgCrisis,
 };
 
 const СИЛЬНЫЙ_ГОРОД: Outcome = {
   title: 'Сильный город',
-  description: 'Город устоял. Ключевые показатели под контролем, есть основа для развития.',
+  description:
+    'Город устоял. Ключевые показатели под контролем, есть основа для развития.',
   image: bgStrong,
 };
 
 const ОБРАЗЦОВЫЙ_ГОРОД: Outcome = {
   title: 'Образцовый город',
-  description: 'Все системы работают в штатном режиме. Инженеры будущего справились с вызовами!',
+  description:
+    'Все системы работают в штатном режиме. Инженеры будущего справились с вызовами!',
   image: bgExemplary,
 };
 
 /**
  * Выбирает исход по итоговому рейтингу.
  *
- * Образцовый город:       final ≥ 28
- * Сильный город:          final 21–27
- * Город в глубоком кризисе: final 10–20
+ * Образцовый город:       final ≥ 25
+ * Сильный город:          final 19–24
+ * Город в глубоком кризисе: final 10–19
  * Катастрофа:             final ≤ 9 (или автопровал — см. FAILURE_OUTCOME)
  */
 export function selectRangeOutcome(
   final: number,
   _values: Record<ResourceCode, number>,
-  _katInput: number
+  _katInput: number,
 ): Outcome {
-  if (final <= 9)  return КАТАСТРОФА;
-  if (final <= 20) return ГЛУБОКИЙ_КРИЗИС;
-  if (final <= 27) return СИЛЬНЫЙ_ГОРОД;
+  if (final <= 10) return КАТАСТРОФА;
+  if (final <= 19) return ГЛУБОКИЙ_КРИЗИС;
+  if (final <= 24) return СИЛЬНЫЙ_ГОРОД;
   return ОБРАЗЦОВЫЙ_ГОРОД;
 }
