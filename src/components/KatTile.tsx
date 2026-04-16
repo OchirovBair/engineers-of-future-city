@@ -1,6 +1,7 @@
 import './ResourceTile.css'
 import './KatTile.css'
 import skullIcon from '../assets/images/icon-skull.png'
+import { useLanguage } from '../i18n/LanguageContext'
 
 interface Props {
   katInput: number
@@ -10,10 +11,12 @@ interface Props {
 }
 
 export function KatTile({ katInput, katDisplay, disabled, onDelta }: Props) {
+  const { t } = useLanguage()
+
   return (
     <div className={`tile tile--kat${disabled ? ' disabled' : ''}`}>
-      <img className="tile__icon tile__icon--skull" src={skullIcon} alt="Катастрофа" />
-      <span className="tile__label tile__label--kat">Катастрофа</span>
+      <img className="tile__icon tile__icon--skull" src={skullIcon} alt={t('katAlt')} />
+      <span className="tile__label tile__label--kat">{t('katLabel')}</span>
 
       <div className="kat__equation">
         <span className="kat__input">{katInput}</span>
@@ -26,7 +29,7 @@ export function KatTile({ katInput, katDisplay, disabled, onDelta }: Props) {
           className="tile__btn tile__btn--kat"
           onClick={() => onDelta(-1)}
           disabled={disabled || katInput === 0}
-          aria-label="Уменьшить катастрофы"
+          aria-label={t('katDecrease')}
         >
           −
         </button>
@@ -34,7 +37,7 @@ export function KatTile({ katInput, katDisplay, disabled, onDelta }: Props) {
           className="tile__btn tile__btn--kat"
           onClick={() => onDelta(1)}
           disabled={disabled}
-          aria-label="Увеличить катастрофы"
+          aria-label={t('katIncrease')}
         >
           +
         </button>

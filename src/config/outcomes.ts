@@ -2,11 +2,12 @@ import bgCatastrophe from '../assets/images/bg-catastrophe.png';
 import bgCrisis from '../assets/images/bg-crisis.png';
 import bgStrong from '../assets/images/bg-strong.png';
 import bgExemplary from '../assets/images/bg-exemplary.png';
+import type { TranslationKey } from '../i18n/translations';
 import type { ResourceCode } from './resources';
 
 export interface Outcome {
-  title: string;
-  description: string;
+  titleKey: TranslationKey;
+  descriptionKey: TranslationKey;
   /** URL картинки для полноэкранного модала */
   image: string;
   /** Показывать заголовок красным цветом */
@@ -15,38 +16,34 @@ export interface Outcome {
 
 /** Автопровал — критический ресурс обнулён */
 export const FAILURE_OUTCOME: Outcome = {
-  title: 'Катастрофа',
-  description:
-    'Один из критически важных показателей достиг нуля, город разрушен.',
+  titleKey: 'outcomeFailureTitle',
+  descriptionKey: 'outcomeFailureDesc',
   image: bgCatastrophe,
   danger: true,
 };
 
 const КАТАСТРОФА: Outcome = {
-  title: 'Катастрофа',
-  description: 'Финальный рейтинг критически низок. Город не смог выстоять.',
+  titleKey: 'outcomeCatastropheTitle',
+  descriptionKey: 'outcomeCatastropheDesc',
   image: bgCatastrophe,
   danger: true,
 };
 
 const ГЛУБОКИЙ_КРИЗИС: Outcome = {
-  title: 'Город в глубоком кризисе',
-  description:
-    'Городу удалось избежать краха, но ситуация остаётся крайне тяжёлой.',
+  titleKey: 'outcomeCrisisTitle',
+  descriptionKey: 'outcomeCrisisDesc',
   image: bgCrisis,
 };
 
 const СИЛЬНЫЙ_ГОРОД: Outcome = {
-  title: 'Сильный город',
-  description:
-    'Город устоял. Ключевые показатели под контролем, есть основа для развития.',
+  titleKey: 'outcomeStrongTitle',
+  descriptionKey: 'outcomeStrongDesc',
   image: bgStrong,
 };
 
 const ОБРАЗЦОВЫЙ_ГОРОД: Outcome = {
-  title: 'Образцовый город',
-  description:
-    'Все системы работают в штатном режиме. Инженеры будущего справились с вызовами!',
+  titleKey: 'outcomeExemplaryTitle',
+  descriptionKey: 'outcomeExemplaryDesc',
   image: bgExemplary,
 };
 

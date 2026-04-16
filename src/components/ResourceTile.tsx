@@ -1,5 +1,6 @@
 import './ResourceTile.css'
 import type { ResourceDef } from '../config/resources'
+import { useLanguage } from '../i18n/LanguageContext'
 
 interface Props {
   resource: ResourceDef
@@ -9,8 +10,10 @@ interface Props {
 }
 
 export function ResourceTile({ resource, value, disabled, onDelta }: Props) {
+  const { t } = useLanguage()
   const isZero = value === 0
   const isCriticalZero = resource.critical && isZero
+  const name = t(resource.nameKey)
 
   const tileClass = [
     'tile',
@@ -22,9 +25,9 @@ export function ResourceTile({ resource, value, disabled, onDelta }: Props) {
 
   return (
     <div className={tileClass}>
-      {resource.critical && <span className="tile__badge">КРИТ</span>}
-      <img className="tile__icon" src={resource.icon} alt={resource.name} />
-      <span className="tile__label">{resource.name}</span>
+      {resource.critical && <span className="tile__badge">{t('resourceCritBadge')}</span>}
+      <img className="tile__icon" src={resource.icon} alt={name} />
+      <span className="tile__label">{name}</span>
       <span className={`tile__value${isZero ? ' tile__value--zero' : ''}`}>
         {value}
       </span>
@@ -33,7 +36,7 @@ export function ResourceTile({ resource, value, disabled, onDelta }: Props) {
           className="tile__btn"
           onClick={() => onDelta(-1)}
           disabled={disabled || value === 0}
-          aria-label={`Уменьшить ${resource.name}`}
+          aria-label={`${t('resourceDecrease')} ${name}`}
         >
           −
         </button>
@@ -41,7 +44,7 @@ export function ResourceTile({ resource, value, disabled, onDelta }: Props) {
           className="tile__btn"
           onClick={() => onDelta(1)}
           disabled={disabled}
-          aria-label={`Увеличить ${resource.name}`}
+          aria-label={`${t('resourceIncrease')} ${name}`}
         >
           +
         </button>

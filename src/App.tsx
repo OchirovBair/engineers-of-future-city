@@ -6,6 +6,8 @@ import { KatTile } from './components/KatTile'
 import { SummaryPanel } from './components/SummaryPanel'
 import { CreditCounter } from './components/CreditCounter'
 import { OutcomeDialog } from './components/OutcomeDialog'
+import { LanguageSwitcher } from './components/LanguageSwitcher'
+import { useLanguage } from './i18n/LanguageContext'
 import pageBg from './assets/images/page-bg.png'
 import logo from './assets/images/logo.png'
 import './styles/global.css'
@@ -14,6 +16,7 @@ import './App.css'
 export default function App() {
   const game = useGameState()
   const [creditResetKey, setCreditResetKey] = useState(0)
+  const { t } = useLanguage()
 
   const handleReset = useCallback(() => {
     game.reset()
@@ -26,8 +29,11 @@ export default function App() {
       style={{ backgroundImage: `url(${pageBg})` }}
     >
       <header className="app__header">
-        <img className="app__logo" src={logo} alt="Логотип" />
-        <h1 className="app__title">Инженеры Будущего Города</h1>
+        <div className="app__lang-switcher">
+          <LanguageSwitcher />
+        </div>
+        <img className="app__logo" src={logo} alt={t('logoAlt')} />
+        <h1 className="app__title">{t('appTitle')}</h1>
       </header>
 
       <main className="app__main">

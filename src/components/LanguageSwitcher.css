@@ -1,0 +1,45 @@
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.lang-switcher__btn {
+  background: transparent;
+  border: 1px solid rgba(78, 200, 255, 0.3);
+  color: var(--text-dim);
+  font-family: 'Orbitron', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, text-shadow 0.2s;
+  line-height: 1;
+}
+
+.lang-switcher__btn:hover {
+  color: var(--neon-blue);
+  border-color: var(--neon-blue);
+}
+
+.lang-switcher__btn--active {
+  color: var(--neon-blue);
+  border-color: var(--neon-blue);
+  text-shadow: 0 0 8px rgba(78, 200, 255, 0.7);
+}
+
+.lang-switcher__sep {
+  color: var(--text-dim);
+  font-size: 10px;
+  opacity: 0.4;
+  user-select: none;
+}
+
+@media (max-width: 639px) {
+  .lang-switcher__btn {
+    font-size: 9px;
+    padding: 3px 6px;
+  }
+}

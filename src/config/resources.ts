@@ -5,6 +5,7 @@ import iconEconomy from '../assets/images/icon-economy.png';
 import iconLaw from '../assets/images/icon-law.png';
 import iconResources from '../assets/images/icon-resources.png';
 import iconTech from '../assets/images/icon-tech.png';
+import type { TranslationKey } from '../i18n/translations';
 
 export type ResourceCode =
   | 'ЭКО'
@@ -17,7 +18,7 @@ export type ResourceCode =
 
 export interface ResourceDef {
   code: ResourceCode;
-  name: string;
+  nameKey: TranslationKey;
   start: number;
   icon: string;
   /** true для ЭКО/ЭНР/ПРВ — обнуление = мгновенный провал */
@@ -27,49 +28,49 @@ export interface ResourceDef {
 export const RESOURCES: ResourceDef[] = [
   {
     code: 'ЭКО',
-    name: 'Экология',
+    nameKey: 'resourceNameEco',
     start: 1,
     icon: iconEcology,
     critical: true,
   },
   {
     code: 'ЭНР',
-    name: 'Энергетика',
+    nameKey: 'resourceNameEnr',
     start: 1,
     icon: iconEnergy,
     critical: true,
   },
   {
     code: 'ИНФ',
-    name: 'Инфраструктура',
+    nameKey: 'resourceNameInf',
     start: 1,
     icon: iconInfra,
     critical: false,
   },
   {
     code: 'ЭКН',
-    name: 'Экономика',
+    nameKey: 'resourceNameEkn',
     start: 1,
     icon: iconEconomy,
     critical: false,
   },
   {
     code: 'ПРВ',
-    name: 'Закон и порядок',
+    nameKey: 'resourceNamePrv',
     start: 1,
     icon: iconLaw,
     critical: true,
   },
   {
     code: 'РЕС',
-    name: 'Ресурсы',
+    nameKey: 'resourceNameRes',
     start: 2,
     icon: iconResources,
     critical: false,
   },
   {
     code: 'ТЕХ',
-    name: 'Технологии',
+    nameKey: 'resourceNameTex',
     start: 1,
     icon: iconTech,
     critical: false,

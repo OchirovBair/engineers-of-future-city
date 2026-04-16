@@ -1,5 +1,6 @@
 import './SummaryPanel.css'
 import { RESOURCES } from '../config/resources'
+import { useLanguage } from '../i18n/LanguageContext'
 
 interface Props {
   index: number
@@ -12,31 +13,36 @@ interface Props {
 }
 
 export function SummaryPanel({ index, katDisplay, final, failed, failedCode, onShowResult, onReset }: Props) {
+  const { t } = useLanguage()
+
+  const failedResource = failedCode ? RESOURCES.find((r) => r.code === failedCode) : null
+  const failedName = failedResource ? t(failedResource.nameKey) : (failedCode ?? '')
+
   return (
     <div className="summary">
-      <div className="summary__title">Итоги города</div>
+      <div className="summary__title">{t('summaryTitle')}</div>
 
       {failed && failedCode && (
         <div className="summary__alert">
-          ⚠ Критический ресурс «{RESOURCES.find(r => r.code === failedCode)?.name ?? failedCode}» обнулён — Провал!
+          {t('summaryAlertPrefix')}{failedName}{t('summaryAlertSuffix')}
         </div>
       )}
 
       <div className="summary__stats">
         <div className="summary__stat">
-          <span className="summary__stat-label">Индекс успешности города</span>
+          <span className="summary__stat-label">{t('summaryIndexLabel')}</span>
           <span className="summary__stat-value">{index}</span>
         </div>
         <div className="summary__divider" />
         <div className="summary__stat">
-          <span className="summary__stat-label">Катастрофа</span>
+          <span className="summary__stat-label">{t('summaryCatastrophe')}</span>
           <span className={`summary__stat-value${katDisplay > 0 ? ' summary__stat-value--danger' : ''}`}>
             {katDisplay}
           </span>
         </div>
         <div className="summary__divider" />
         <div className="summary__stat">
-          <span className="summary__stat-label">Итог</span>
+          <span className="summary__stat-label">{t('summaryFinal')}</span>
           <span className={`summary__stat-value${final < 6 ? ' summary__stat-value--danger' : ''}`}>
             {final}
           </span>
@@ -48,10 +54,10 @@ export function SummaryPanel({ index, katDisplay, final, failed, failedCode, onS
           className="summary__btn"
           onClick={onShowResult}
         >
-          {failed ? 'Посмотреть итог' : 'Показать результат'}
+          {failed ? t('summaryBtnSeeResult') : t('summaryBtnShowResult')}
         </button>
         <button className="summary__btn summary__btn--reset" onClick={onReset}>
-          Сброс
+          {t('summaryBtnReset')}
         </button>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import './OutcomeDialog.css'
 import type { Outcome } from '../config/outcomes'
+import { useLanguage } from '../i18n/LanguageContext'
 
 interface Props {
   open: boolean
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export function OutcomeDialog({ open, outcome, onClose }: Props) {
+  const { t } = useLanguage()
   const isFailure = outcome?.danger === true
 
   return (
@@ -28,15 +30,15 @@ export function OutcomeDialog({ open, outcome, onClose }: Props) {
             <Dialog.Title
               className={`dialog__title${isFailure ? ' dialog__title--failure' : ''}`}
             >
-              {outcome?.title ?? '—'}
+              {outcome ? t(outcome.titleKey) : '—'}
             </Dialog.Title>
             <Dialog.Description id="dialog-desc" className="dialog__desc">
-              {outcome?.description ?? ''}
+              {outcome ? t(outcome.descriptionKey) : ''}
             </Dialog.Description>
           </div>
 
           <Dialog.Close asChild>
-            <button className="dialog__close" aria-label="Закрыть">
+            <button className="dialog__close" aria-label={t('dialogClose')}>
               ✕
             </button>
           </Dialog.Close>
